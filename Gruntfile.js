@@ -396,15 +396,16 @@ module.exports = function (grunt) {
 
     // build and Heroku deployment
     buildcontrol: {
-    options: {
+      options: {
         dir: 'dist',
         commit: true,
         push: true,
         message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
     },
+
     heroku: {
         options: {
-            remote: 'git@heroku.com:heroku-app-1985.git',
+            remote: 'git@heroku.com:dry-cove-9444.git',
             branch: 'master'
         }
     }
