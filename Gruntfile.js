@@ -134,12 +134,16 @@ module.exports = function (grunt) {
     clean: {
       dist: {
         files: [{
-          dot: true,
-          src: [
-            '.tmp',
-            '<%= yeoman.dist %>/{,*/}*',
-            '!<%= yeoman.dist %>/.git*'
-          ]
+            dot: true,
+            src: [
+                '.tmp',
+                '<%= yeoman.dist %>/*',
+                '!<%= yeoman.dist %>/.git*',
+                '!<%= yeoman.dist %>/Procfile',
+                '!<%= yeoman.dist %>/package.json',
+                '!<%= yeoman.dist %>/web.js',
+                '!<%= yeoman.dist %>/node_modules'
+           ]
         }]
       },
       server: '.tmp'
@@ -388,7 +392,23 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    // build and Heroku deployment
+    buildcontrol: {
+    options: {
+        dir: 'dist',
+        commit: true,
+        push: true,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+    },
+    heroku: {
+        options: {
+            remote: 'git@heroku.com:heroku-app-1985.git',
+            branch: 'master'
+        }
     }
+ }
   });
 
 
@@ -442,4 +462,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.registerTask('deploy', ['buildcontrol']);
 };
